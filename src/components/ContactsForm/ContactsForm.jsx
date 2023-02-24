@@ -28,6 +28,9 @@ export function ContactForm ({onAddContact}) {
     const handleSubmitForm = (evt) => {
         evt.preventDefault();
         onAddContact({ id, name, number });
+        setName('');
+        setNumber('');
+        setId('');
     }
 
     return (

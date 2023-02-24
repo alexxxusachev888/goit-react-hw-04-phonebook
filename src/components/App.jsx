@@ -1,33 +1,15 @@
-import { useState, useEffect } from "react";
-import Notiflix, { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { mockPhones } from './mockPhones';
+import { useState } from "react";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { useLocaleStorage } from '../hooks/useLocalStorage';
 
 import { ContactsList } from "./ContactsList/ContactsList";
 import { ContactForm } from './ContactsForm/ContactsForm';
 import { Filter } from './Filter/Filter';
 import { Container, Header, SubHeader } from "./App.styled";
 
-Notiflix.Notify.init({
-  width: '280px',
-  position: 'top-top',
-  distance: '250px',
-  opacity: 1,
-});
-
 export function App () {
-  const [contacts, setContacts] = useState(mockPhones);
+  const [contacts, setContacts] = useLocaleStorage("phonebook", []);
   const [filter, setFilter] = useState('');
-
-useEffect(()=> {
-    window.localStorage.setItem("phonebook", JSON.stringify(contacts));
-
-  }, [contacts]);
-
-/* componentDidMount() {
-  const storagedPhonebook = JSON.parse(localStorage.getItem("phonebook"))
-  if(storagedPhonebook) {
-    this.setState({contacts: storagedPhonebook})}
-  } */
 
 const onSubmitForm = (contact) => {
     const checkDuplicate = () => {
